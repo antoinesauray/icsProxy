@@ -7,20 +7,19 @@
         request   = require('request');
 
     var PORT = process.env.PORT || 8080;
-
+    var USERNAME = process.env.POLYTECH_USERNAME
+    var PASSWORD = process.env.POLYTECH_PASSWORD
+    
     http.createServer(function (req, res) {
 
         if (req.url.indexOf('?') >= 0) {
             var params = query.parse(req.url.replace(/^.*\?/, ''));
-
-            var user = params.user,
-                pwd  = params.password,
-                url  = params.url;
+            var url  = params.url;
         }
 
-        if (user && pwd && url) {
+        if (url) {
 
-            var target = 'https://' + user + ':' + pwd + '@' + url;
+            var target = 'https://' + USERNAME + ':' + PASSWORD + '@' + url;
             console.log(target);
 
             request(target).pipe(res);
